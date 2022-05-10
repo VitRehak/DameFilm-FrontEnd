@@ -1,0 +1,19 @@
+#rating_bar {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  display: inline;
+}
+#rating_bar > span:before {
+  content: "☆";
+  color: black;
+  cursor: pointer;
+  font-size: 3em;
+}
+#rating_bar:hover > span:before {
+  color: yellow;
+}
+
+#rating_bar > span:hover ~ span:before {
+  color: black;
+}

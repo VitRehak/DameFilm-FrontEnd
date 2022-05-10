@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext } from "react";
+import Navigation from "./components/Navigation";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Register from "./components/Register";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LogOut from "./components/LogOut";
+import { UpdateContext, useForceUpdate } from "./myFunctions";
+import LogIn from "./components/LogIn";
+import Profile from "./components/Profile";
+import Movies from "./components/Movies";
+import MovieDetail from "./components/MovieDetail";
 
-function App() {
+const App: React.FC = () => {
+  const forceUpdate = useForceUpdate();
+
+  const update = function() {
+    forceUpdate();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <UpdateContext.Provider value={forceUpdate}>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<></>} />
+            <Route path="/movie/:id" element={<MovieDetail />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/logout" element={<LogOut />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </BrowserRouter>
+      </UpdateContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
